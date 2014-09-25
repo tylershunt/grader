@@ -5,3 +5,4 @@ one day to be a useable tool.
 
 ###Script Names and Descriptions###
 * _Validate.py_ - Usefull in git based projects. Takes a google form spreadsheet (.csv), clones git repos and verifies the existance of files.
+* *spoj_sub.py* - Usefull in sphere based project. Allows for the submission of several files to Sphere Online Judge (SPOJ) via command line.
