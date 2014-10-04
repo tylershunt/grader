@@ -92,7 +92,7 @@ class Student():
       return self.sub_time > other.sub_time
 
    def isBad( self ):
-      return self.badEmail or self.badUrl or self.badSha or self.missingFiles
+      return self.badEmail or self.badUrl or self.badSha or self.missingFiles or self.missingPublicFiles
 
    def notify(self):
       if not self.isBad():
