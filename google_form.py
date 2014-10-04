@@ -15,9 +15,8 @@ be accesssed loosly like dictionaries
 Fields cna be named anything you want but need to be included
 as a dictionary when is created (cols)
 
-The class has default values which you can use if you wish
 """
-class Google_Form(DictMixin):
+class GoogleForm(DictMixin):
    # assumption: in a google form time is always in column 0
    defalut_cols = { 0:"time", 3:"eid", 1:"f_name", 2:"l_name", 
       7:"url", 8:"sha", 6:"email" }
@@ -41,7 +40,7 @@ class Google_Form(DictMixin):
       class Record(UserDict):
          def __init__( self, **kwargs ):
             super(Google_Form, self).__init__(**kwargs)
-            self.id = kwargs[_pk]
+            self.id = kwargs[_pk].lower()
          def __gt__(self, other):
             return self[_time] > other[_time]
          def __lt__(self, other):
@@ -55,6 +54,7 @@ class Google_Form(DictMixin):
       def builder(row):
          d = { _cols[i]:row[i] for i in _cols }
          d[_time] = time.strptime( d[_time], time_format )
+         d[_pk] = d[_pk].lower()
          return Record(d)
       return builder
 
