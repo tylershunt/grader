@@ -17,13 +17,21 @@ from sh import git, ErrorReturnCode, mail
 from filecmp import dircmp
 from Google_Form import GoogleForm
 
-PUBLIC_FILES = ['{}-RunCollatz.in', '{}-RunCollatz.out', '{}-TestCollatz.c++', '{}-TestCollatz.out']
+PUBLIC_FILES = ['{}-RunCollatz.in', 
+                '{}-RunCollatz.out', 
+                '{}-TestCollatz.c++', 
+                '{}-TestCollatz.out'
+               ]
 P_STUDENTS = '.students'
 SUBS_DIR_NAME = 'submissions'
 EMAIL_RGX  = re.compile(r'^[^@]+@[^@]+\.[^@]+$')
-GITHUB_RGX = re.compile(r'github.com[:/]([^/]+)/([^/]+)/?')
+GITHUB_RGX = re.compile(r'github.com[:/](?P<uname>[^/]+)/(?P<repo>[^/]+)/?')
+GITHUB_SSH = "git@github.com:{}/{}"
 col_names = { 0:"time", 3:"eid", 1:"f_name", 2:"l_name", 
    7:"url", 8:"sha", 6:"email" }
+
+pk  = "eid"
+url = "url"
 
 
 
@@ -100,9 +108,9 @@ def verifyPublicFiles(students, public):
 
 def standardize_urls( form ):
    for key in form:
-      match = re.match(form[key][email])
-      if not match
-         return False
+      match = GITHUB_RGX.search(form[key][url])
+      if match:
+         form[key][url] = GITHUB_SSH.format(match.group('uname'), match.group('repo')) 
       
 
 def main( args ):
