@@ -90,16 +90,16 @@ class GoogleForm(DictMixin):
     """
     def insert_batch( self, updates ):
         for record in updates:
-            insert( *record )
+            self.insert( record )
 
 
     """
     load a csv file to update self
     """
-    def load(self, istrem):
+    def load(self, istream):
         reader = csv.reader(istream)
         reader.next() # we don't care about col names
-        self.insert_batch( row_to_record(row) for row in reader)
+        self.insert_batch( self.row_to_record(row) for row in reader)
 
     """
     interface to easily insert new records directly from a list
